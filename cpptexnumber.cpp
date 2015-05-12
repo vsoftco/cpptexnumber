@@ -1,6 +1,6 @@
 // Replaces latex labels and references
 // Compile with g++ -std=c++11 -O3 cpptexnumber.cpp -o cpptexnumber
-// Use the -DDO_NOT_IGNORE_COMMENTS flag 
+// Use the -DDO_NOT_IGNORE_COMMENTS flag
 // if you do not want to ignore the comments (ignored by default)
 
 #include <cstddef>
@@ -170,6 +170,13 @@ int main(int argc, char* argv[])
                   << argv[1] << std::endl;
         std::exit(EXIT_FAILURE);
 
+    }
+    if (std::string(argv[1]) == argv[2])
+    {
+        std::cout << "SYSTEM ERROR: "
+                  << "The output file must be different from the input file!"
+                  << std::endl;
+        std::exit(EXIT_FAILURE);
     }
     std::ofstream ofile(argv[2]);
     if (!ofile)
