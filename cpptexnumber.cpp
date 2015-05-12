@@ -22,7 +22,7 @@ using idx_label_map = std::map<std::size_t, std::string>;
 idx_label_map by_value(const label_idx_map& labels)
 {
     idx_label_map result;
-    for (auto&& elem : labels)
+    for (auto && elem : labels)
         result[elem.second] = elem.first;
     return result;
 }
@@ -46,16 +46,16 @@ label_idx_map build_labels(std::ifstream& ifile,
         // search regex in current line
         while (std::regex_search(line, labels, re))
         {
-            for (auto&& label : labels) // matches
+            for (auto && label : labels) // matches
             {
                 // strip "content" from \label{content}
                 std::string label_content =
-                        label.str().substr(7, label.str().size() - 8);
+                    label.str().substr(7, label.str().size() - 8);
                 if (result.find(label_content) != result.end())
                 {
                     std::cout << "PARSING ERROR: Duplicate \\label{"
-                    << label_content << "} on line "
-                    << label_no << std::endl;
+                              << label_content << "} on line "
+                              << label_no << std::endl;
                     std::exit(EXIT_FAILURE);
                 }
                 result[label_content] = label_no++;
@@ -87,7 +87,7 @@ std::string replace_line(std::string line,
             if (end == std::string::npos)
             {
                 std::cout << "PARSING ERROR: No matching '}'"
-                << " on line " << line_no << std::endl;
+                          << " on line " << line_no << std::endl;
                 std::exit(EXIT_FAILURE);
             }
 
@@ -102,13 +102,13 @@ std::string replace_line(std::string line,
                                       std::to_string(labels.at(ref));
                 line.replace(start_replace, count, new_ref);
             }
-                // the reference starts with pattern_in
-                // but it is not in the labels map
+            // the reference starts with pattern_in
+            // but it is not in the labels map
             else if (ref.compare(0, pattern_in.size(), pattern_in) == 0)
             {
                 std::cout << "PARSING WARNING: Undefined reference "
-                << elem << ref << "} on line " << line_no
-                << std::endl;
+                          << elem << ref << "} on line " << line_no
+                          << std::endl;
             }
         }
     }
@@ -156,32 +156,32 @@ int main(int argc, char* argv[])
     if (argc != 5)
     {
         std::cout << "Usage: " << argv[0]
-        << " <in.tex> <out.tex> <pattern> <replacement>"
-        << std::endl;
+                  << " <in.tex> <out.tex> <pattern> <replacement>"
+                  << std::endl;
         std::cout << "(c) Vlad Gheorghiu 2015, vsoftco@gmail.com"
-        << std::endl;
+                  << std::endl;
         std::exit(EXIT_FAILURE);
     }
     std::ifstream ifile(argv[1]);
     if (!ifile)
     {
         std::cout << "SYSTEM ERROR: Can not open the input file "
-        << argv[1] << std::endl;
+                  << argv[1] << std::endl;
         std::exit(EXIT_FAILURE);
 
     }
     if (std::string(argv[1]) == argv[2])
     {
         std::cout << "SYSTEM ERROR: "
-        << "The output file must be different from the input file!"
-        << std::endl;
+                  << "The output file must be different from the input file!"
+                  << std::endl;
         std::exit(EXIT_FAILURE);
     }
     std::ofstream ofile(argv[2]);
     if (!ofile)
     {
         std::cout << "SYSTEM ERROR: Can not open the output file "
-        << argv[2] << std::endl;
+                  << argv[2] << std::endl;
         std::exit(EXIT_FAILURE);
     }
     std::string pattern_in = argv[3];
@@ -191,12 +191,12 @@ int main(int argc, char* argv[])
                                      "\\eqref{",
                                      "\\ref{",
                                      "\\pageref{"
-    };
+                                    };
     auto labels = build_labels(ifile, pattern_in);
     if (labels.size() == 0)
     {
         std::cout << "PARSING ERROR: pattern <" << pattern_in
-        << "> not found" << std::endl;
+                  << "> not found" << std::endl;
         std::exit(EXIT_FAILURE);
     }
     ifile.clear();
@@ -204,9 +204,9 @@ int main(int argc, char* argv[])
     replace_refs(ifile, ofile, pattern_in, pattern_out, labels, refs);
 
     std::cout << "REPLACED: " << std::endl;
-    for (auto&& elem : by_value(labels))
+    for (auto && elem : by_value(labels))
     {
         std::cout << elem.second << " -> " <<
-        (pattern_out + std::to_string(elem.first)) << std::endl;
+                  (pattern_out + std::to_string(elem.first)) << std::endl;
     }
 }
