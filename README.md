@@ -36,7 +36,9 @@ executable `cpptexnumber`, from the source file `./cpptexnumber.cpp`.
     
         cpptexnumber in.tex out.tex pattern replacement 
 
-### Description: replaces all labels in `in.tex` that match 
+### Description: 
+
+Replaces all labels in `in.tex` that match 
 a given input pattern, such as `\label{pattern*}` 
 and all corresponding references (`\ref`, `\eqref`, `\pageref`) 
 with renumbered ones `replacement+idx`, where `idx` counts 
@@ -45,7 +47,9 @@ i.e. equals 1 for the first `\label` that matches the input pattern,
 2 for the second etc. The `in.tex` is left unchanged and the 
 modifications are written to `out.tex`.
 
-### Example: consider a latex file `source.tex` having three labels, named, 
+### Example: 
+
+Consider a latex file `source.tex` having three labels, named, 
 in order of appearance, `\label{eqn5}`, `\label{eqn_important}` 
 and lastly `\label{entropy}`. Then the command 
 
