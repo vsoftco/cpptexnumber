@@ -34,7 +34,7 @@ executable `cpptexnumber`, from the source file `./cpptexnumber.cpp`.
 
 ### Usage: 
     
-        cpptexnumber in.tex out.tex pattern replacement 
+    cpptexnumber in.tex out.tex pattern replacement 
 
 ### Description: 
 
@@ -53,7 +53,7 @@ Consider a latex file `source.tex` having three labels, named,
 in order of appearance, `\label{eqn5}`, `\label{eqn_important}` 
 and lastly `\label{entropy}`. Then the command 
 
-        cpptexnumber in.tex out.tex eqn Eqn 
+    cpptexnumber in.tex out.tex eqn Eqn 
 
 will replace `\label{eqn5}` by `\label{Eqn1}` (and also all references 
 to `eqn5` will automatically become references to `Eqn1`) and replace 
