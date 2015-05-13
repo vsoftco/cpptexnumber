@@ -58,6 +58,7 @@ void pretty_print(const label_idx_map& labels,
     }
 }
 
+// builds the labels map
 label_idx_map build_labels(std::ifstream& ifile,
                            const std::string& pattern_in)
 {
@@ -100,6 +101,7 @@ label_idx_map build_labels(std::ifstream& ifile,
     return result;
 }
 
+// replaces all matching references in the current line
 std::string replace_line(std::string line,
                          const std::string& pattern_in,
                          const std::string& pattern_out,
@@ -149,6 +151,7 @@ std::string replace_line(std::string line,
     return line;
 }
 
+// replace all matching references
 void replace_refs(std::ifstream& ifile,
                   std::ofstream& ofile,
                   const std::string& pattern_in,
