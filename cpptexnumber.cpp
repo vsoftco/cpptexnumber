@@ -3,9 +3,11 @@
 // Use the -DDO_NOT_IGNORE_COMMENTS flag
 // if you do not want to ignore the comments (ignored by default)
 
+#include <algorithm>
 #include <cstddef>
 #include <cstdlib>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <map>
 #include <regex>
@@ -16,9 +18,10 @@
 #define DEBUG_PRINT(x) std::cout << (x) << std::endl
 
 using label_idx_map = std::map<std::string, std::size_t>;
+using label_idx_pair = std::pair<std::string, std::size_t>;
 using idx_label_map = std::map<std::size_t, std::string>;
 
-// build a map sorted by value from a standard map sorted by key
+// builds a map sorted by value from a standard map sorted by key
 idx_label_map by_value(const label_idx_map& labels)
 {
     idx_label_map result;
@@ -26,6 +29,26 @@ idx_label_map by_value(const label_idx_map& labels)
         result[elem.second] = elem.first;
     return result;
 }
+
+// displays the labels replacement map with proper alignment and spacing
+void pretty_print(const label_idx_map& labels,
+                  const std::string& pattern_out)
+{
+    auto max_length_it =
+        std::max_element(labels.begin(), labels.end(),
+                    [](const label_idx_pair & lhs, const label_idx_pair & rhs)
+                    {
+                        return lhs.first.size() < rhs.first.size();
+                    }
+        );
+    auto max_length = max_length_it->first.size();
+    for (auto && elem : by_value(labels))
+    {
+        std::cout << std::left << std::setw(max_length) << elem.second
+                  << " -> " << pattern_out << elem.first << std::endl;
+    }
+}
+
 
 label_idx_map build_labels(std::ifstream& ifile,
                            const std::string& pattern_in)
@@ -204,9 +227,5 @@ int main(int argc, char* argv[])
     replace_refs(ifile, ofile, pattern_in, pattern_out, labels, refs);
 
     std::cout << "REPLACED: " << std::endl;
-    for (auto && elem : by_value(labels))
-    {
-        std::cout << elem.second << " -> " <<
-                  (pattern_out + std::to_string(elem.first)) << std::endl;
-    }
+    pretty_print(labels, pattern_out);
 }
