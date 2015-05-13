@@ -19,7 +19,6 @@
 // structures
 typedef std::map<std::string, std::size_t> label_idx_map;
 typedef std::map<std::size_t, std::string> idx_label_map;
-typedef std::pair<std::string, std::size_t> label_idx_pair;
 typedef std::vector<std::string>::const_iterator vector_string_const_it;
 
 // iterators
