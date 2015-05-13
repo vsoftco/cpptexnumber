@@ -1,5 +1,5 @@
 // Replaces latex labels and references
-// Compile with g++ -std=c++11 -O3 cpptexnumber.cpp -o cpptexnumber
+// Compile with g++ -O3 cpp98texnumber.cpp -o cpp98texnumber
 // Use the -DDO_NOT_IGNORE_COMMENTS flag
 // if you do not want to ignore the comments (ignored by default)
 
