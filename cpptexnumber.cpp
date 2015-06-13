@@ -78,7 +78,7 @@ label_idx_map build_labels(std::ifstream& ifile,
                 {
                     std::cout << "PARSING ERROR: Duplicate \\label{"
                               << label_content << "} on line "
-                              << label_no << std::endl;
+                              << line_no << std::endl;
                     std::exit(EXIT_FAILURE);
                 }
                 result[label_content] = label_no++;

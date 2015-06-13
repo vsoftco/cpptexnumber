@@ -63,9 +63,6 @@ label_idx_map build_labels(std::ifstream& ifile,
                            const std::string& pattern_in)
 {
     label_idx_map result;
-    /*std::regex re{R"(\\label\{)" + pattern_in + R"(.*?\})"};
-    std::smatch labels;*/
-
     std::string line;
     std::size_t line_no = 0, label_no = 1;
 
@@ -95,7 +92,15 @@ label_idx_map build_labels(std::ifstream& ifile,
             }
             str_size_type start_label = start + 7;
             str_size_type count = end - start_label;
-            result[line.substr(start_label, count)] = label_no++;
+            std::string label_content = line.substr(start_label, count);
+            if (result.find(label_content) != result.end())
+            {
+                std::cout << "PARSING ERROR: Duplicate \\label{"
+                          << label_content << "} on line "
+                          << line_no << std::endl;
+                std::exit(EXIT_FAILURE);
+            }
+            result[label_content] = label_no++;
         }
     }
     return result;
