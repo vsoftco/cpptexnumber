@@ -98,7 +98,7 @@ std::string replace_line(std::string line,
                          const std::vector<std::string>& refs,
                          std::size_t line_no)
 {
-    for (auto& elem : refs) // for all reference types
+    for (auto && elem : refs) // for all reference types
     {
         std::string::size_type start;
         std::string::size_type end = 0;
@@ -153,7 +153,7 @@ void replace_refs(std::ifstream& ifile,
     while (std::getline(ifile, line))
     {
         ++line_no;
-        auto ss = std::istringstream{line};
+        std::istringstream ss{line};
         // get the line without comments
 #ifndef DO_NOT_IGNORE_COMMENTS
         std::getline(ss, line_no_comments, '%');
