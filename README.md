@@ -14,7 +14,7 @@ building via [cmake](http://www.cmake.org/) and
 [g++](https://gcc.gnu.org/)/[clang++](http://clang.llvm.org/). 
 The compiler must be C++11 compliant and must fully support the 
 `std::regex` Regular Expression part of the C++ Standard Library. 
-I recommend `[g++](https://gcc.gnu.org/)` version 4.9
+I recommend [g++](https://gcc.gnu.org/) version 4.9
 or later, or [clang++](http://clang.llvm.org/) version 3.5 or later.
 
 ### Building with [cmake](http://www.cmake.org/):
