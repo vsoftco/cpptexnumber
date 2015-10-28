@@ -86,7 +86,7 @@ label_idx_map build_labels(std::ifstream& ifile,
             end = line.find("}", start);
             if (end == std::string::npos)
             {
-                std::cout << "PARSING ERROR: No matching '}'"
+                std::cerr << "PARSING ERROR: No matching '}'"
                           << " on line " << line_no << std::endl;
                 std::exit(EXIT_FAILURE);
             }
@@ -95,7 +95,7 @@ label_idx_map build_labels(std::ifstream& ifile,
             std::string label_content = line.substr(start_label, count);
             if (result.find(label_content) != result.end())
             {
-                std::cout << "PARSING ERROR: Duplicate \\label{"
+                std::cerr << "PARSING ERROR: Duplicate \\label{"
                           << label_content << "} on line "
                           << line_no << std::endl;
                 std::exit(EXIT_FAILURE);
@@ -126,7 +126,7 @@ std::string replace_line(std::string line,
             end = line.find("}", start);
             if (end == std::string::npos)
             {
-                std::cout << "PARSING ERROR: No matching '}'"
+                std::cerr << "PARSING ERROR: No matching '}'"
                           << " on line " << line_no << std::endl;
                 std::exit(EXIT_FAILURE);
             }
@@ -147,7 +147,7 @@ std::string replace_line(std::string line,
             // but it is not in the labels map
             else if (ref.compare(0, pattern_in.size(), pattern_in) == 0)
             {
-                std::cout << "PARSING WARNING: Undefined reference "
+                std::cerr << "PARSING WARNING: Undefined reference "
                           << *it << ref << "} on line " << line_no
                           << std::endl;
             }
@@ -197,24 +197,24 @@ int main(int argc, char* argv[])
 {
     if (argc != 5)
     {
-        std::cout << "Usage: " << argv[0]
+        std::cerr << "Usage: " << argv[0]
                   << " <in.tex> <out.tex> <pattern> <replacement>"
                   << std::endl;
-        std::cout << "(c) Vlad Gheorghiu 2015, vsoftco@gmail.com"
+        std::cerr << "(c) Vlad Gheorghiu 2015, vsoftco@gmail.com"
                   << std::endl;
         std::exit(EXIT_FAILURE);
     }
     std::ifstream ifile(argv[1]);
     if (!ifile)
     {
-        std::cout << "SYSTEM ERROR: Can not open the input file "
+        std::cerr << "SYSTEM ERROR: Can not open the input file "
                   << argv[1] << std::endl;
         std::exit(EXIT_FAILURE);
 
     }
     if (std::string(argv[1]) == argv[2])
     {
-        std::cout << "SYSTEM ERROR: "
+        std::cerr << "SYSTEM ERROR: "
                   << "The output file must be different from the input file!"
                   << std::endl;
         std::exit(EXIT_FAILURE);
@@ -222,7 +222,7 @@ int main(int argc, char* argv[])
     std::ofstream ofile(argv[2]);
     if (!ofile)
     {
-        std::cout << "SYSTEM ERROR: Can not open the output file "
+        std::cerr << "SYSTEM ERROR: Can not open the output file "
                   << argv[2] << std::endl;
         std::exit(EXIT_FAILURE);
     }
@@ -237,7 +237,7 @@ int main(int argc, char* argv[])
     label_idx_map labels = build_labels(ifile, pattern_in);
     if (labels.size() == 0)
     {
-        std::cout << "PARSING ERROR: pattern <" << pattern_in
+        std::cerr << "PARSING ERROR: pattern <" << pattern_in
                   << "> not found" << std::endl;
         std::exit(EXIT_FAILURE);
     }
