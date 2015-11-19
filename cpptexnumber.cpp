@@ -61,10 +61,11 @@ label_idx_map build_labels(std::ifstream& ifile,
     while (std::getline(ifile, line))
     {
         ++line_no;
+        std::istringstream iss{line};
 #ifndef DO_NOT_IGNORE_COMMENTS
-        std::getline(std::istringstream {line}, line, '%');
+        std::getline(iss, line, '%');
 #else
-        std::getline(std::istringstream {line}, line);
+        std::getline(iss, line);
 #endif
         // search regex in current line
         while (std::regex_search(line, labels, re))
