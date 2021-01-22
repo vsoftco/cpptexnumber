@@ -1,28 +1,25 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8.4)
-PROJECT(cpptexnumber)
+cmake_minimum_required(VERSION 3.10)
+project(cpptexnumber)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-#### supports only g++ and clang++
-IF (NOT ${CMAKE_CXX_COMPILER_ID} MATCHES "Clang" AND NOT ${CMAKE_CXX_COMPILER_ID} MATCHES "GNU")
-    MESSAGE(FATAL_ERROR "This CMakeLists.txt works only with g++/clang++")
-ENDIF()
+#### Additional flags for GNU gcc and Clang/AppleClang
+if (${CMAKE_CXX_COMPILER_ID} MATCHES "Clang" OR ${CMAKE_CXX_COMPILER_ID}
+        STREQUAL "GNU")
+    set(CMAKE_INCLUDE_SYSTEM_FLAG_CXX "-isystem")
+    #### Enable all warnings
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic -Wall -Wextra -Weffc++")
+endif ()
 
-SET(ADDITIONAL_FLAGS  "-std=c++11 -pedantic -Wall -Wextra -Weffc++")
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${ADDITIONAL_FLAGS}")
+set(CMAKE_CXX_FLAGS_MINSIZEREL "${CMAKE_CXX_FLAGS_MINSIZEREL}")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
+set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
 
-OPTION(DO_NOT_IGNORE_COMMENTS "Do not ignore comments in the source file" OFF)
-IF(${DO_NOT_IGNORE_COMMENTS})
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDO_NOT_IGNORE_COMMENTS")
-ENDIF()
+if (NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release CACHE STRING
+            "Choose the type of build, options are: None Debug Release MinSizeRel RelWithDebInfo."
+            FORCE)
+endif ()
 
-SET(CMAKE_CXX_FLAGS_MINSIZEREL "${CMAKE_CXX_FLAGS_MINSIZEREL}")
-SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
-SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
-
-IF( NOT CMAKE_BUILD_TYPE )
-    SET( CMAKE_BUILD_TYPE Release CACHE STRING
-       "Choose the type of build, options are: None Debug Release MinSizeRel RelWithDebInfo."
-       FORCE )
-ENDIF()
-
-SET(SOURCE_FILES cpptexnumber.cpp)
-ADD_EXECUTABLE(cpptexnumber ${SOURCE_FILES})
+set(SOURCE_FILES src/cpptexnumber.cpp)
+add_executable(cpptexnumber ${SOURCE_FILES})
