@@ -53,7 +53,8 @@ std::string usage(const std::string& name) {
     result += "Usage: " + name +
               " <pattern> <replacement> [ignore_comments ON(default)/OFF] "
               "[log_file]\n\n";
-    result += "The program reads from the standard input and writes to the "
+    result += "Renumbers LaTeX equations. "
+              "The program reads from the standard input and writes to the "
               "standard output.\n";
     result += "Warnings and errors are output to the standard error stream.";
     return result;
