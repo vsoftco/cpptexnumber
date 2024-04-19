@@ -6,19 +6,17 @@ Renumbers LaTeX references.
 
 Compile with
 
-    g++ -std=c++11 -O3 src/cpptexnumber.cpp -o cpptexnumber
+    c++ -std=c++11 -O3 src/cpptexnumber.cpp -o cpptexnumber
 
 A `CMakeLists.txt` is provided for automatic building
-via [CMake](http://www.cmake.org/) and
-[g++](https://gcc.gnu.org/)/[clang++](http://clang.llvm.org/). The compiler
-must be C++11 compliant and must fully support the `std::regex` Regular
-Expression library of the C++ Standard Library. I recommend
-[g++](https://gcc.gnu.org/) version 4.9 or later, or
-[clang++](https://clang.llvm.org/) version 3.5 or later.
+via [CMake](http://www.cmake.org/). The compiler must be C++11 compliant and
+must fully support the `std::regex` Regular Expression library of the C++
+Standard Library. I recommend [g++](https://gcc.gnu.org/) version 4.9 or later,
+or [clang++](https://clang.llvm.org/) version 3.5 or later.
 
 ### Building with [CMake](http://www.cmake.org/)
 
-I recommend an out-of-source build, i.e., from the root of the project execute
+I recommend an out-of-source build, i.e., from the root of the project, execute
 
     cmake -B build
     cmake --build build

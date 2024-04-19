@@ -63,8 +63,9 @@ std::string usage(const std::string& name) {
 // builds a map sorted by value from a standard map sorted by key
 idx_label_map map_by_value(const label_idx_map& labels) {
     idx_label_map result;
-    for (auto&& elem : labels)
+    for (auto&& elem : labels) {
         result[elem.second] = elem.first;
+    }
     return result;
 }
 
@@ -88,8 +89,9 @@ label_idx_map build_labels(std::stringstream& input,
          ++line_no) {
         if (ignore_comments) {
             std::size_t pos = line.find('%');
-            if (pos != std::string::npos)
+            if (pos != std::string::npos) {
                 line.erase(pos);
+            }
         }
         // search regex in current line
         while (std::regex_search(line, labels, re)) {
@@ -126,12 +128,13 @@ void replace_refs_in_line(std::string& line, const std::string& pattern_in,
         std::string::size_type end = 0;
         while (true) {
             start = line.find(elem, end);
-            if (start == std::string::npos || start > pos_comment)
+            if (start == std::string::npos || start > pos_comment) {
                 break;
+            }
             end = line.find('}', start);
             if (end == std::string::npos) {
-                std::cerr << "PARSING ERROR: No matching '}'"
-                          << " on line " << line_no << '\n';
+                std::cerr << "PARSING ERROR: No matching '}'" << " on line "
+                          << line_no << '\n';
                 std::exit(EXIT_FAILURE);
             }
 
@@ -175,8 +178,9 @@ int main(int argc, char* argv[]) {
     if (argc > 3) {
         std::string flag{argv[3]};
         std::transform(flag.begin(), flag.end(), flag.begin(), ::toupper);
-        if (flag == "OFF")
+        if (flag == "OFF") {
             ignore_comments = false;
+        }
     }
 
     // modify as needed
